@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_action :require_user
+  #before_action :require_user
   before_action :set_report, only: [:show, :edit, :update, :destroy]
 
   # GET /reports
