@@ -1,0 +1,77 @@
+<h4 style="color: #337AB7">Report Details</h4>
+<div style=" margin-top: 15px; margin-bottom: 15px; border-radius: 5px; font-size: 20px">
+<p>
+  <small>Report Name:</small>
+  <%= @report.reportname %>
+</p>
+<p>
+  <small>Post by:</small>
+  <%= User.find(@report.user_id).username %>
+</p>
+<p class="button"><a class="fancybox" data-fancybox-type="iframe" href='serve?path=<%= @report.path %>'>Review</a></p>
+<p class="button"><%= link_to 'Send mail', emails_new_path(:user_id => @report.user_id, :report_id => @report.id),
+                              {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></p>
+<!--
+<p class="button"><%= link_to 'Send mail', emails_new_path(:user_id => @report.user_id, :report_id => @report.id) %></p>
+-->
+  <% if @report.user_id == session[:user_id] %>
+<p class="button"><%= link_to 'Edit', edit_report_path(@report) %></p>
+  <p class="button"><%= link_to 'Destroy', @report, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+      <% end %>
+  <p class="button"><%= link_to 'Back', 'javascript:history.go(-1);' %></p>
+</div>
+<div>
+  </br>
+  </br>
+  <strong>Post comment</strong>
+<%= form_for (@private_message) do |f| %>
+    <div class="field">
+      <%= f.text_area :content %>
+    </div>
+    <div class="field">
+      <%= f.hidden_field :report_id, :value => @report.id %>
+    </div>
+    <div class="field">
+      <%= f.hidden_field :user_id, :value => session[:user_id] %>
+    </div>
+    <div class="actions">
+      <%= submit_tag "Submit", :class => "btn btn-default" %>
+    </div>
+<% end %>
+<strong>Recent Comments</strong>
+<% if !@private_messages.nil? %>
+    <% @private_messages.each do |pm| %>
+          <div class="comment">
+        <p>
+          <%= pm.content %>
+        </p>
+        <p>Post by
+          <strong><em><%= User.find(pm.user_id).username %></em></strong>
+        </p>
+          </div>
+    <% end %>
+<% end %>
+</div>
+
+<div id="modal-window" class="modal hide fade in" role="dialog"
+     aria-hidden="true" style="display: none; ">
+
+  <div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h4>New message</h4>
+  <%= form_tag(:action => 'sendMail', :controller => 'emails') do  %>
+      <p><label for="email_subject">Subject</label>
+        <%= text_field_tag :subject %></p>
+      <p><label for="email_message">Message</label>
+        <%= text_area_tag  :message %></p>
+      <p><%= hidden_field_tag :mail_to, @report.user_id %></p>
+      <p><%= hidden_field_tag :report_id, @report.id %></p>
+      <p style="margin-left: 150px"><%= submit_tag "Send mail", :class => "btn btn-default" %></p>
+  <% end %>
+  </div>
+</div>
+
+
+
+
+

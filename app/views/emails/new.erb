@@ -1,0 +1,23 @@
+<h4>New message</h4>
+
+<%= form_tag(:action => 'sendMail') do  %>
+    <p><label for="email_subject">Subject</label>
+      <%= text_field_tag :subject %></p>
+    <p><label for="email_message">Message</label>
+      <%= text_area_tag  :message %></p>
+    <p><%= hidden_field_tag :mail_to, params[:user_id] %></p>
+    <p><%= hidden_field_tag :report_id, params[:report_id] %></p>
+    <p style="margin-left: 150px"><%= submit_tag "Send mail" %></p>
+<% end %>
+
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Modal header</h3>
+</div>
+<div class="modal-body">
+  **here comes whatever you want to show!**
+</div>
+<div class="modal-footer">
+  <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  <button class="btn btn-primary">Save changes</button>
+</div>

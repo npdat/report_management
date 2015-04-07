@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ReportManagement</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $(".fancybox").fancybox({
+              openEffect  : 'elastic',
+              closeEffect : 'elastic',
+              iframe : {
+                  preload: false
+              }
+          });
+          $(".fancybox").fancybox.showActivity()
+      });
+  </script>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div id="left_header">
+      <h1>Report</h1>
+      <h1>Management</h1>
+    </div>
+    <div id="right_header">
+      <div id="right_header_top" >
+          <% if !session[:user_id].nil? %>
+              <%= 'Hi, ' + session[:username] %> | <%= link_to("Logout", user_sessions_destroy_path, :class => "btn") %>
+          <!--<a href="javascript:;" id="right_header_top"><p>Login</p></a>-->
+          <% end %>
+        </div>
+      <div id="right_header_bottom">
+        <ul>
+          <li><%= link_to "REPORT NEWEST", reports_newest_url %></li>
+          <li><%= link_to "SEARCH", reports_search_path %></li>
+          <li><%= link_to "MY REPORT", root_path %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+      <%= yield %>
+  </div>
+  <div class="footer" style="text-align: right">
+    © 2015 by NPDAT. All rights reserved.
+  </div>
+</div>
+</body>
+</html>

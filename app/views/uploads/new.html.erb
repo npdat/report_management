@@ -1,0 +1,10 @@
+<%= form_for(@upload, html: { multipart: true, class: "dropzone"}) do |f|  %>
+  <div class="fallback">
+    <%= f.file_field :pdf %><br>
+  </div>
+<% end %>
+
+<%= link_to 'Sitemap', root_url+'/public/pdfs/000/000/026.pdf', { target: '_blank' } %>
+<br>
+
+

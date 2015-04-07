@@ -1,0 +1,34 @@
+<h3 style="color: #337AB7">Search Reports</h3>
+
+<%= form_tag @report, :method => 'get' do %>
+    <p>
+      <%= text_field_tag :search %>
+      <%= submit_tag "Search", :class => "btn btn-default" %>
+    </p>
+<% end %>
+
+<% if !@reports.nil? %>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th style="text-align: left"><h4><small>Report Name</small></h4></th>
+    <th style="text-align: left"><h4><small>Post by</small></h4></th>
+    <th colspan="1"></th>
+  </tr>
+  </thead>
+  <tbody>
+      <% @reports.each do |report| %>
+          <tr>
+            <td><%= report.reportname %></td>
+            <td><%= User.find(report.user_id).username %></td>
+            <td class="button"><a class="fancybox" data-fancybox-type="iframe" href='serve?path=<%= report.path %>'>Review</a></td>
+            <td class="button"><%= link_to 'Show', reports_show_path(:id => report.id, :index => "search", :search => params[:search]) %></td>
+            <% if report.user_id == session[:user_id] %>
+                <td class="button"><%= link_to 'Edit', edit_report_path(report) %></td>
+                <td class="button"><%= link_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+          </tr>
+      <% end %>
+  </tbody>
+</table>
+<% end %>

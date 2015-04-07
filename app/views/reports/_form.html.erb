@@ -1,0 +1,19 @@
+<%= form_for(@report, html: { multipart: true, class: "dropzone"}) do |f| %>
+  <div class="container" style="background-color: #f7f7f9; margin-bottom: 20px">
+    <div class="field">
+    <%= f.label :reportname %>
+    <%= f.text_area :reportname %>
+  </div>
+  <div class="field">
+    <%= f.label "Path (only pdf format)" %>
+    <%= f.file_field(:path, accept: 'image/png,image/gif,image/jpeg') %>
+    <%= file_field_tag :path,  :accept => 'text/csv' %>
+  </div></br>
+  </div>
+  <div class="actions" style="margin-left: 0px">
+    <%= f.submit "Save report", :class => "btn btn-default"%>
+  </div>
+    <span class="label label-danger"><%= flash[:notice] %></span>
+<% end %>
+
+

@@ -1,0 +1,8 @@
+<div class= "Sign_Form">
+  <h3 style="color: #337AB7">Log in</h3>
+  <%= form_tag(:action => 'create') do %>
+      <p>Username or Email:</br> <%= text_field_tag :username_or_email %></p>
+      <p>Password:</br> <%= password_field_tag :login_password %></p>
+      <%= submit_tag "Log In", :class => "btn btn-default" %>
+  <% end %>
+</div>
